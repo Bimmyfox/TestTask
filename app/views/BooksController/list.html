@@ -1,0 +1,91 @@
+#{extends 'main.html' /}
+#{set title:'Books' /}
+
+<div class="container">
+    <h1>Каталог книг</h1>
+
+#{ifnot books}
+    <p>
+        В библиотеке нет книг
+    </p>
+#{/ifnot}
+
+#{else}
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Автор</th>
+            <th>Название</th>
+            <th>Издатель</th>
+            <th>Год выпуска</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+            #{list books, as:'book'}
+            <tr>
+                <td>${book.author}</td>
+                <td>${book.title}</td>
+                <td>${book.publisher}</td>
+                <td>${book.yearOfIssue}</td>
+                <td><a href="@{form(book.id)}">Редактировать</a> /
+                    #{a @BooksController.deleteBook(book.id)}Удалить#{/a}
+                </td>
+            </tr>
+            #{/list}
+        </tbody>
+    </table>
+#{/else}
+
+    <br>
+    <h2>Добавить книгу </h2>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Автор</th>
+            <th>Название</th>
+            <th>Издатель</th>
+            <th>Год выпуска</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+
+        #{form @addBook()}
+            <td><input type="text" name="book.author" placeholder="Автор"
+                       required pattern="^[А-Яа-яЁёa-zA-Z\s-,.]+$">
+            </td>
+            <td><input type="text" name="book.title" placeholder="Название"
+                       required pattern="^[А-Яа-яЁёa-zA-Z\s\d-.,]+$">
+            </td>
+
+            <td><input type="text" name="book.publisher" placeholder="Издатель"
+                       required pattern="^[А-Яа-яЁёa-zA-Z\s.,-]+$">
+            </td>
+            <td><input type="number" name="book.yearOfIssue" placeholder="ХХХХ"
+                       required min="1800" max="2018">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+            <input class="btn btn-primary " type="submit" value="Записать" style="margin-left: 50%; transform: translate(-50%)">
+
+        #{/form}
+
+*{кто читал книгу}*
+    <br>
+    <h2>История книги</h2>
+
+    <div id="readersBySearchBook">
+        <form action="@{BooksController.showHistoryBook()}" method="POST" accept-charset="${_response_encoding}">
+            <label>Название</label>
+            <input type="text" name="searchBookTitle" placeholder="Название"
+                   value="${searchBookTitle}" pattern="^[А-Яа-яЁёa-zA-Z\s-,.]+$"/>
+            <label>Автор</label>
+            <input type="text" name="searchBookAuthor" placeholder="Автор"
+                   value="${searchBookAuthor}" pattern="^[А-Яа-яЁёa-zA-Z\s-,.]+$"/>
+            <input type="submit" value="Поиск"/>
+        </form>
+    </div>
+</div>

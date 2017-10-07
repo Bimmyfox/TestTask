@@ -1,0 +1,43 @@
+#{extends 'main.html' /}
+#{set title:'FormBooks' /}
+
+<div class="container">
+    <h2>Редактирование книги</h2>
+
+
+    <table class="table table-bordered">
+    #{form @addBook()}
+        <input type="hidden" name="book.id" value="${book?.id}">
+
+        <tr>
+            <th>Автор</th>
+            <td><input type="text" name="book.author" placeholder="Автор"
+                       value="${book?.author}" required pattern="^[А-Яа-яЁёa-zA-Z\s-,.]+$">
+            </td>
+        </tr>
+        <tr>
+            <th>Название</th>
+            <td><input type="text" name="book.title" placeholder="Название"
+                       value="${book?.title}" required pattern="^[А-Яа-яЁёa-zA-Z\d\s-.,]+$">
+            </td>
+        </tr>
+        <tr>
+            <th>Издатель</th>
+            <td><input type="text" name="book.publisher" placeholder="Издатель"
+                       value="${book?.publisher}" required pattern="^[А-Яа-яЁёa-zA-Z\s.,-]+$">
+            </td>
+        </tr>
+        <tr>
+            <th>Год выпуска</th>
+            <td><input type="number" name="book.yearOfIssue" placeholder="ХХХХ"
+                       value="${book?.yearOfIssue}" required min="1800" max="2018">
+            </td>
+        </tr>
+        <tr>
+            <th>Действия</th>
+            <td><input type="submit" value="Изменить">
+                <a href=@{list()}>Отменить</a></td>
+        </tr>
+    #{/form}
+    </table>
+</div>

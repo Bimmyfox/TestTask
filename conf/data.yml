@@ -1,0 +1,70 @@
+#Readers
+
+models.Reader(f_reader):
+      surname:            Волгин
+      name:               Алексей
+      patronymic:         Антонович
+      phoneNumber:        79624798456
+      address:            г. Пенза, Кулакова 4
+      passport:           1123 222222
+
+models.Reader(s_reader):
+    surname:            Доронина
+    name:               Валентина
+    patronymic:         Игоревна
+    phoneNumber:        89991101919
+    address:            г. Пенза, Тернопольская 8
+    passport:           5656 646464
+
+models.Reader(t_reader):
+    surname:            Луи
+    name:               Си Кей
+    patronymic:
+    phoneNumber:        454545
+    address:            Вадинская 19
+    passport:           1144 111111
+
+
+#BooksController
+models.Book(1):
+    author:             Стивен Кинг
+    title:              Оно
+    publisher:          Викинг
+    yearOfIssue:        2015
+
+models.Book(2):
+    author:             Лев Толстой
+    title:              Война и мир
+    publisher:          Эскмо
+    yearOfIssue:        2016
+
+models.Book(3):
+    author:             Бенджамин Франклин
+    title:              Автобиография
+    publisher:          Эскмо
+    yearOfIssue:        2012
+
+
+#LogBooks
+models.LogBook(1):
+    reader: [f_reader]
+    book: [1]
+    dateOfBookWasTaken:   2017-08-16
+    dateOfBookWasReturned:   2017-09-16
+    returned:           false
+
+
+models.LogBook(2):
+    reader: [s_reader]
+    book: [2]
+    dateOfBookWasTaken:   2017-09-19
+    dateOfBookWasReturned:   2017-10-19
+    returned:           false
+
+
+models.LogBook(3):
+    reader: [t_reader]
+    book: [3]
+    dateOfBookWasTaken:   2016-08-16
+    dateOfBookWasReturned:   2016-09-16
+    returned:           true

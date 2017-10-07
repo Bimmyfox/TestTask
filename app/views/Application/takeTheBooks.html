@@ -1,0 +1,31 @@
+#{extends 'main.html' /}
+#{set title:'takeTheBooks' /}
+<div class="container">
+#{ifErrors}
+
+    <h1>Oops…</h1>
+
+    #{errors}
+        <li>${error}</li>
+    #{/errors}
+
+#{/ifErrors}
+    #{if ((reader == null) && (book == null) )}
+        <h1>Читатель и книга не найдены</h1>
+    #{/if}
+
+    #{ifnot reader  }
+    <h1>Читатель не найден</h1>
+    #{/ifnot}
+
+    #{if book == null }
+    <h1>Книга не найдена</h1>
+    #{/if}
+
+    #{else}
+        <h1>Книги нет в наличии</h1>
+    #{/else}
+
+    <button><a href="@{index()}">Назад</a></button>
+
+</div>

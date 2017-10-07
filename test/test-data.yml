@@ -1,0 +1,26 @@
+#Reader
+
+models.Reader(test_reader):
+      surname:            Фамилия
+      name:               Имя
+      patronymic:         Отчество
+      phoneNumber:        79999999999
+      address:            город улица 0
+      passport:           1111 111111
+
+#Book
+models.Book(1):
+    author:             Автор
+    title:              Название
+    publisher:          Издатель
+    yearOfIssue:        1980
+
+
+
+#LogBook
+models.LogBook(1):
+    reader: [test_reader]
+    book: [1]
+    dateOfBookWasTaken:   2000-01-01
+    dateOfBookWasReturned:   2000-02-01
+    returned:           true

@@ -1,0 +1,103 @@
+#{extends 'main.html' /}
+#{set title:'Library' /}
+
+<div class="container">
+
+    <h1>Журнал</h1>
+
+#{ifnot logBooks}
+    <p> История чиста </p>
+#{/ifnot}
+
+
+#{else}
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Читатель</th>
+            <th>Книга</th>
+            <th>Взял(а) книгу</th>
+            <th>Необходимо вернуть</th>
+            <th>В библиотеке</th>
+            <th class="edit">Действие</th>
+        </tr>
+        </thead>
+        <tbody>
+
+            #{list logBooks, as:'logBook'}
+            <tr>
+                <td>${logBook.reader.name + " " + logBook.reader.surname}</td>
+                <td>${logBook.book.title + ", " + logBook.book.author}</td>
+                <td>${logBook.dateOfBookWasTaken}</td>
+                <td>${logBook.dateOfBookWasReturned}</td>
+                #{if logBook.returned}
+                    <td>Да</td>
+                    <td></td>
+                #{/if}
+                #{else}
+                    <td>Нет</td>
+                    <td><a href="@{Application.returnTheBook(logBook.id)}">Вернуть</a></td>
+                #{/else}
+            </tr>
+            #{/list}
+        </tbody>
+    </table>
+#{/else}
+
+    <br>
+    <h2>Взять книгу</h2>
+
+
+    <div id="failMessage">
+        <p>Ошибка </p>
+        <ul>
+            <li>Все поля должны быть заполнены</li>
+        </ul>
+    </div>
+
+    <div id="error-message"></div>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Фамилия читателя</th>
+            <th>Имя читателя</th>
+            <th>Название книги</th>
+            <th>Автор</th>
+            <th class="edit"><i onclick="addForm()" aria-hidden="true">Ещё</i></th>
+
+        </tr>
+        </thead>
+
+    <tbody>
+    #{form  @takeTheBooks()}
+    <tr class="add-book-form">
+        <td><input id='last-name' type="text" name="readerSurname" value="${readerSurname}" placeholder="Фамилия"
+                   required pattern="^[А-Яа-яЁё\s\-]+$">
+        </td>
+
+        <td><input id='first-name' type="text" name="readerName" value="${readerName}" placeholder="Имя"
+                   required pattern="^[А-Яа-яЁё\s\-]+$">
+        </td>
+
+        <td><input type="text" name="bookTitle" value="${bookTitle}" placeholder="Название книги"
+                   required pattern="^[А-Яа-яЁёa-zA-Z\s\d-,.]+$">
+        </td>
+
+        <td><input type="text" name="bookAuthor" value="${bookAuthor}" placeholder="Автор"
+                   required pattern="^[А-Яа-яЁёa-zA-Z\s-,.]+$">
+        </td>
+        <td></td>
+    </tr>
+    </tbody>
+    #{/form}
+    </table>
+    <div class="row">
+        <button id="takeTheBooks" class="col-xs-2 col-xs-offset-5 btn btn-primary" onclick="submitForm()">ВЗЯТЬ</button>
+    </div>
+
+</div>
+<script src="@{'/public/javascripts/index.js'}" type="text/javascript"
+        charset="${_response_encoding}"></script>
+

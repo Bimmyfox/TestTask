@@ -1,0 +1,53 @@
+.nav-bar {
+    background-color: #39393A;
+}
+
+.nav-wrapper > .row{
+    height: 50px;
+}
+
+.nav-wrapper > .row > * {
+    height: 100%;
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    padding: 12px;
+    transition: .3s background-color;
+}
+
+.nav-wrapper > .row > *:hover {
+    background-color: #49494a;
+}
+
+.add-book-form > td {
+    padding: 0 !important;
+    margin: 0;
+    border: none;
+}
+
+.add-book-form > td > input {
+    width: 100%;
+    border: none;
+    padding: 7px;
+    height: 100%;
+    margin: 0;
+}
+
+.remove-btn {
+    font-size: 20px !important;
+    padding: 5px 4px !important;
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+}
+
+.edit {
+    vertical-align: middle !important;
+    padding: 0 !important;
+}
+
+#failMessage {
+    color: red;
+    display: none;
+}

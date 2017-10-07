@@ -1,0 +1,38 @@
+#{extends 'main.html' /}
+#{set title:'Readers' /}
+
+<div class="container">
+#{ifnot logReaders}
+<br>
+<h2>
+    Все книги сданы или такого читателя не существует
+</h2>
+#{/ifnot}
+
+#{else}
+<h1> ${logReaders.get(0).reader.name} ${logReaders.get(0).reader.surname} </h1>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Книга</th>
+        <th>Взял(а) из библиотеки</th>
+        <th>Необходимо вернуть</th>
+    </tr>
+    </thead>
+    <tbody>
+        #{list logReaders, as:'logReader'}
+        <tr>
+            #{if !logReader.returned}
+                <td>${logReader.book.title + ", " + logReader.book.author}</td>
+                <td>${logReader.dateOfBookWasTaken}</td>
+                <td>${logReader.dateOfBookWasReturned}</td>
+            #{/if}
+        </tr>
+        #{/list}
+
+    </tbody>
+</table>
+
+#{/else}
+
+</div>

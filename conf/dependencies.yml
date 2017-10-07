@@ -1,0 +1,4 @@
+# Application dependencies
+
+require:
+    - play -> maven 3.5.0

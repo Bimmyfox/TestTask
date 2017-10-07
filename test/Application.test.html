@@ -1,0 +1,18 @@
+*{ You can use plain selenium command using the selenium tag }*
+
+#{selenium}
+    // Open the home page, and check that no error occured
+    open('/')
+    assertNotTitle('Application error')
+#{/selenium}
+
+#{fixture delete:'all', load:'test-data.yml' /}
+
+#{selenium 'Check home page'}
+    open('/')
+    assertTextPresent('Журнал')
+    assertTextPresent('Читатель')
+    assertTextNotPresent('Привет')
+    assertTextPresent('Взять книгу')
+    assertTextPresent('Ошибка')
+#{/selenium}

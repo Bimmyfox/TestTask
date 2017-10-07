@@ -1,0 +1,121 @@
+#{extends 'main.html' /}
+#{set title:'Readers' /}
+
+<style>
+    #input-form > td {
+        padding: 0;
+    }
+
+    #input-form > td > input {
+        width: 100%;
+        border-style: none;
+        padding: 7px;
+    }
+</style>
+
+<div class="container">
+    <h1>Читатели</h1>
+
+#{ifnot readers}
+    <p>
+        Не найдено ни одного чителя
+    </p>
+#{/ifnot}
+
+#{else}
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ФИО</th>
+            <th>Номер телефона</th>
+            <th>Адрес</th>
+            <th>Действие</th>
+        </tr>
+        </thead>
+        <tbody>
+            #{list readers, as:'reader'}
+            <tr>
+                <td>${reader.surname} ${reader.name} ${reader.patronymic}</td>
+                <td>${reader.phoneNumber}</td>
+                <td>${reader.address}</td>
+                <td><a href="@{form(reader.id)}">Редактировать</a>/
+                    #{a @ReadersController.deleteReader(reader.id)}Удалить#{/a}
+                </td>
+            </tr>
+            #{/list}
+        </tbody>
+    </table>
+#{/else}
+<!--</div>-->
+    <br>
+    <h2>Запись в библиотеку</h2>
+
+    <!--<div class="container">-->
+            #{form @addReader()}
+    <table class="table table-bordered table-condensed ">
+        <thead>
+        <tr>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Номер телефона</th>
+            <th>Адрес</th>
+            <th>Серия и номер <br> паспорта</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr id="input-form">
+
+            <td><input type="text" name="reader.surname" placeholder="Фамилия"
+                       required pattern="^[А-Яа-яЁё\s-]+$"/>
+            </td>
+            <td><input type="text" name="reader.name" placeholder="Имя"
+                       required pattern="^[А-Яа-яЁё\s\-]+$"/>
+            </td>
+            <td>
+                <input type="text" name="reader.patronymic" placeholder="Отчество"
+                       pattern="^[А-Яа-яЁё\s\-]+$"/>
+            </td>
+            <td>
+                <input type="text" name="reader.phoneNumber" placeholder="от 6 до 11 цифр"
+                       required pattern="[0-9]{6,11}"/>
+            </td>
+            <td>
+                <input type="text" name="reader.address" placeholder="г. Город, Улица дом"
+                       required pattern="^[А-Яа-яЁё\s\d,.-]+$"/>
+            </td>
+            <td>
+                <input type="text" name="reader.passport" placeholder="0000 000000"
+                       required pattern="\d{4}\s\d{6}"/>
+            </td>
+
+
+        </tr>
+        </tbody>
+
+    </table>
+            <input class="btn btn-primary " type="submit" value="Записать" style="margin-left: 50%; transform: translate(-50%)">
+            #{/form}
+
+*{какие книги сейчас у читателя}*
+    <br>
+    <h2>Просмотр книг у читателя</h2>
+    <div id="booksBySearchReader">
+
+        <form action="@{ReadersController.showHistoryReader()}" method="POST" accept-charset="${_response_encoding}">
+
+            <label>Имя</label>
+            <input type="text" name="searchReaderName" value="${searchReaderName}"
+                   placeholder="Имя" pattern="^[А-Яа-яЁё\s]+$"/>
+
+            <label>Фамилия</label>
+            <input type="text" name="searchReaderSurname" value="${searchReaderSurname}"
+                   placeholder="Фамилия" pattern="^[А-Яа-яЁё\s]+$"/>
+
+            <input type="submit" value="Поиск"/>
+        </form>
+    </div>
+    </div>
+
+

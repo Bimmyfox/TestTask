@@ -1,0 +1,67 @@
+#{extends 'main.html' /}
+#{set title:'FormReaders' /}
+
+<div class="container">
+    <br>
+
+    <h2>Редактирование читателя</h2>
+    <br>
+
+    <table class="table table-bordered">
+    #{form @addReader()}
+        <tbody>
+        <input type="hidden" name="reader.id" value="${reader?.id}">
+
+        <tr>
+            <th>Фамилия</th>
+            <td><input type="text" name="reader.surname" placeholder="Фамилия"
+                       value="${reader?.surname}" required pattern="^[А-Яа-яЁё\s-]+$"/>
+            </td>
+        </tr>
+        <tr>
+            <th>Имя</th>
+            <td><input type="text" name="reader.name" placeholder="Имя"
+                       value="${reader?.name}" required pattern="^[А-Яа-яЁё\s\-]+$"/>
+            </td>
+        </tr>
+        <tr>
+            <th>Отчество</th>
+            <td>
+                <input type="text" name="reader.patronymic" placeholder="Отчество"
+                       value="${reader?.patronymic}" pattern="^[А-Яа-яЁё\s\-]+$"/>
+            </td>
+        </tr>
+        <tr>
+            <th>Номер телефона</th>
+            <td>
+                <input type="text" name="reader.phoneNumber" placeholder="от 6 до 11 цифр"
+                       value="${reader?.phoneNumber}" required pattern="[0-9]{6,11}"/>
+            </td>
+        </tr>
+        <tr>
+            <th>Адрес</th>
+            <td>
+                <input type="text" name="reader.address" placeholder="г. Город, Улица дом"
+                       value="${reader?.address}" required pattern="^[А-Яа-яЁё\d\s,.-]+$"/>
+            </td>
+        </tr>
+        <tr>
+            <th>Серия и номер паспорта</th>
+            <td>
+                <input type="text" name="reader.passport" placeholder="0000 000000"
+                       value="${reader?.passport}" required pattern="\d{4}\s\d{6}"/>
+            </td>
+        </tr>
+        <tr>
+            <th>Действие</th>
+            <td>
+                <input type="submit" value="Изменить">
+                <a href=@{list()}>Отменить</a>
+            </td>
+        </tr>
+        </tbody>
+    #{/form}
+
+    </table>
+
+</div>
